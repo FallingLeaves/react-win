@@ -1,0 +1,77 @@
+// @tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+*::selection {
+	background: initial;
+}
+
+body {
+	--dark-txt: #000;
+	--alt-txt: #fff;
+	--med-dark: #111;
+	--txt-col: #222;
+	--med-txt: #3c3c3c;
+	--comp-txt: #ddd;
+	--comp-clr: #e6e6e6;
+	--gray-txt: #555;
+	--sat-txt: #777;
+	--clrPrm: #0067c0;
+	--wintheme: #eee;
+
+	--txt_clr-rgb: 0 0 0;
+	--base_bg-rgb: 243 243 243;
+
+	--fakeMica: #f3f3f3 radial-gradient(#eff4f9 75%, #f3f3f3 100%) no-repeat fixed;
+}
+
+body {
+	margin: 0;
+	padding: 0;
+	font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
+		"Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
+		sans-serif;
+	-webkit-font-smoothing: antialiased;
+	-moz-osx-font-smoothing: grayscale;
+	width: 100vw;
+	height: 100vh;
+	user-select: none;
+	overflow: hidden !important;
+}
+
+.App {
+	position: relative;
+	width: 100vw;
+	height: 100vh;
+}
+
+input {
+	border: none;
+	outline: none;
+}
+
+input::selection {
+	background: #0074ff;
+	color: #fefefe;
+}
+
+input {
+	font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
+		"Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue";
+}
+
+a {
+	text-decoration: none;
+	color: #0080e1;
+}
+
+#sus-fallback {
+	width: 100%;
+	position: relative;
+	height: 100%;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	background: #010001;
+	color: white;
+}

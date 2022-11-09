@@ -75,3 +75,11 @@ a {
 	background: #010001;
 	color: white;
 }
+
+.handcr {
+	cursor: pointer;
+}
+
+.prtclk * {
+	pointer-events: none;
+}

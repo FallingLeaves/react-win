@@ -11,15 +11,17 @@ const root = ReactDOM.createRoot(
 );
 
 root.render(
-	<Suspense
-		fallback={
-			<div id="sus-fallback">
-				<h1>Loading</h1>
-			</div>
-		}
-	>
-		<Provider store={store}>
-			<App />
-		</Provider>
-	</Suspense>
+	<React.StrictMode>
+		<Suspense
+			fallback={
+				<div id="sus-fallback">
+					<h1>Loading</h1>
+				</div>
+			}
+		>
+			<Provider store={store}>
+				<App />
+			</Provider>
+		</Suspense>
+	</React.StrictMode>
 );

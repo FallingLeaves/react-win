@@ -4,6 +4,7 @@ import "./App.scss";
 // import { Counter } from "./Counter";
 
 import { Background } from "./containers/background";
+import { Taskbar } from "@/components/taskbar";
 
 function ErrorFallback({ error, resetErrorBoundary }: FallbackProps) {
 	return (
@@ -22,6 +23,7 @@ function App() {
 				{/* <Counter></Counter> */}
 				<div className="appwrap">
 					<Background />
+					<Taskbar />
 				</div>
 			</ErrorBoundary>
 		</div>

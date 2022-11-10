@@ -3,6 +3,7 @@ import counterReducer from "./counter";
 import wallpaperReducer from "./wallpaper";
 import taskbarReducer from "./taskbar";
 import settingsReducer from "./settings";
+import desktopReducer from "./desktop";
 
 const store = configureStore({
 	reducer: {
@@ -10,6 +11,7 @@ const store = configureStore({
 		wallpaper: wallpaperReducer,
 		taskbar: taskbarReducer,
 		settings: settingsReducer,
+		desktop: desktopReducer,
 	},
 });
 

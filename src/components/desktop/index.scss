@@ -1,0 +1,27 @@
+.desktop-content {
+}
+
+.desktop-app {
+	margin: 4px;
+	width: 74px;
+	height: 84px;
+	font-size: 0.8em;
+	border: 1px solid transparent;
+
+	&:focus {
+		background: rgba(255, 255, 255, 0.24);
+	}
+	&:hover {
+		background: rgba(255, 255, 255, 0.12);
+	}
+	&:focus {
+		border: 1px dotted white;
+	}
+
+	.app-name {
+		text-align: center;
+		color: #fafafa;
+		margin-top: 4px;
+		text-shadow: 0 0 4px rgba(0, 0, 0, 0.6);
+	}
+}

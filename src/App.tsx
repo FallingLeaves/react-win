@@ -5,6 +5,7 @@ import "./App.scss";
 
 import { Background } from "./containers/background";
 import { Taskbar } from "@/components/taskbar";
+import { Desktop } from "@/components/desktop";
 
 function ErrorFallback({ error, resetErrorBoundary }: FallbackProps) {
 	return (
@@ -24,6 +25,9 @@ function App() {
 				<div className="appwrap">
 					<Background />
 					<Taskbar />
+					<div className="desktop">
+						<Desktop />
+					</div>
 				</div>
 			</ErrorBoundary>
 		</div>

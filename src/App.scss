@@ -2,3 +2,11 @@
 	position: relative;
 	z-index: 0;
 }
+
+.desktop {
+	position: absolute;
+	width: 100%;
+	top: 0;
+	bottom: 48px;
+	overflow: hidden;
+}

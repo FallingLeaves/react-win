@@ -1,10 +1,21 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import "./index.scss";
 import { useAppDispatch, useAppSelector } from "@/hooks";
 import { Icon } from "@/utils/general";
+import { Battery } from "@/components/battery";
 
 export function Taskbar() {
 	const tasks = useAppSelector((state) => state.taskbar);
+	const [time, setTime] = useState(new Date());
+
+	useEffect(() => {
+		const timer = setTimeout(() => {
+			setTime(new Date());
+		}, 1000);
+		return () => {
+			clearTimeout(timer);
+		};
+	}, [time]);
 
 	return (
 		<div className="taskbar">
@@ -59,22 +70,24 @@ export function Taskbar() {
 							ui
 							width={16}
 						></Icon>
+						<Battery></Battery>
 					</div>
 					<div className="task-date m-1 handcr prtclk" data-action="CALNTOGG">
 						<div>
-							{new Date().toLocaleTimeString("en-US", {
+							{time.toLocaleTimeString("en-US", {
 								hour: "numeric",
 								minute: "numeric",
 							})}
 						</div>
 						<div>
-							{new Date().toLocaleDateString("en-US", {
+							{time.toLocaleDateString("en-US", {
 								year: "2-digit",
 								month: "2-digit",
 								day: "numeric",
 							})}
 						</div>
 					</div>
+					<Icon className="graybd my-4" ui width={6} click="SHOWDSK" pr></Icon>
 				</div>
 			</div>
 		</div>

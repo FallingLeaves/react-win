@@ -161,7 +161,7 @@ export const Icon = (props: IconProps) => {
 						data-flip={props.flip}
 						data-invert={props.invert ? "true" : "false"}
 						data-rounded={props.rounded ? "true" : "false"}
-						src={src}
+						src={props.src ? src : undefined}
 						style={{
 							margin: props.margin,
 						}}

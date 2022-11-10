@@ -2,12 +2,14 @@ import { configureStore } from "@reduxjs/toolkit";
 import counterReducer from "./counter";
 import wallpaperReducer from "./wallpaper";
 import taskbarReducer from "./taskbar";
+import settingsReducer from "./settings";
 
 const store = configureStore({
 	reducer: {
 		counter: counterReducer,
 		wallpaper: wallpaperReducer,
 		taskbar: taskbarReducer,
+		settings: settingsReducer,
 	},
 });
 

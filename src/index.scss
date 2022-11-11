@@ -83,3 +83,9 @@ a {
 .prtclk * {
 	pointer-events: none;
 }
+
+@keyframes overflow-hider {
+	100% {
+		width: 0;
+	}
+}

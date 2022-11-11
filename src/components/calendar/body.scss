@@ -1,0 +1,53 @@
+.calendar-body {
+	font-size: 13px;
+
+	&-content {
+		color: #ccc;
+	}
+
+	&-current-month {
+		color: black;
+		cursor: pointer;
+	}
+
+	&-current-day {
+		background: #7bdcfe;
+    border-radius: 100px;
+
+		span {
+			border-radius: 5px;
+		}
+	}
+
+	&-week {
+		display: flex;
+		border-left: 1px solid #e3ecf3;
+		&-label {
+			font-weight: bold;
+			display: flex;
+			height: 42px;
+			line-height: 42px;
+			border-left: 1px solid #e3ecf3;
+
+			&-day {
+				text-align: center;
+				width: 20%;
+				border-right: 1px solid #e3ecf3;
+				border-bottom: 1px solid #e3ecf3;
+			}
+		}
+
+		&-day {
+			text-align: center;
+			width: 20%;
+			min-height: 42px;
+			line-height: 42px;
+			border-right: 1px solid #e3ecf3;
+			border-bottom: 1px solid #e3ecf3;
+		}
+	}
+
+	.red-font {
+		// color: red;
+	}
+}

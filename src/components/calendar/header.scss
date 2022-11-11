@@ -1,0 +1,19 @@
+.calendar-header {
+	user-select: none;
+	font-size: 20px;
+	border: 1px solid #e3ecf3;
+	padding: 8px 0;
+
+	.header-left {
+		font-size: 14px;
+		font-weight: 600;
+	}
+
+	.mounth-btn {
+		font-size: 14px;
+	}
+
+	.mounth-btn + .mounth-btn {
+		margin-left: 20px;
+	}
+}

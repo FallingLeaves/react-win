@@ -6,6 +6,7 @@ import "./App.scss";
 import { Background } from "./containers/background";
 import { Taskbar } from "@/components/taskbar";
 import { Desktop } from "@/components/desktop";
+import { CalendarWid } from "@/components/calendar-widget";
 
 function ErrorFallback({ error, resetErrorBoundary }: FallbackProps) {
 	return (
@@ -27,6 +28,7 @@ function App() {
 					<Taskbar />
 					<div className="desktop">
 						<Desktop />
+						<CalendarWid />
 					</div>
 				</div>
 			</ErrorBoundary>

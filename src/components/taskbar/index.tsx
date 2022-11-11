@@ -3,10 +3,12 @@ import "./index.scss";
 import { useAppDispatch, useAppSelector } from "@/hooks";
 import { Icon } from "@/utils/general";
 import { Battery } from "@/components/battery";
+import { toggleCal } from "@/store/sidepane";
 
 export function Taskbar() {
 	const tasks = useAppSelector((state) => state.taskbar);
 	const [time, setTime] = useState(new Date());
+	const dispath = useAppDispatch();
 
 	useEffect(() => {
 		const timer = setTimeout(() => {
@@ -16,6 +18,10 @@ export function Taskbar() {
 			clearTimeout(timer);
 		};
 	}, [time]);
+
+	const dateClick = (e: React.MouseEvent) => {
+		dispath(toggleCal());
+	};
 
 	return (
 		<div className="taskbar">
@@ -72,7 +78,11 @@ export function Taskbar() {
 						></Icon>
 						<Battery></Battery>
 					</div>
-					<div className="task-date m-1 handcr prtclk" data-action="CALNTOGG">
+					<div
+						className="task-date m-1 handcr prtclk"
+						data-action="CALNTOGG"
+						onClick={dateClick}
+					>
 						<div>
 							{time.toLocaleTimeString("en-US", {
 								hour: "numeric",

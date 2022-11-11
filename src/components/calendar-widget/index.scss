@@ -1,0 +1,62 @@
+.calendar-pane {
+	--bg1: #dae2f2;
+	--bg2: #e6edf8;
+
+	&.bd-blur {
+		--bg1: rgba(242, 242, 242, 0.9);
+		--bg2: rgba(0, 0, 0, 0.05);
+		--bgHvr: rgba(0, 0, 0, 0.05);
+		backdrop-filter: blur(20px);
+	}
+
+	position: absolute;
+	bottom: 12px;
+	right: 12px;
+	width: 21rem;
+	background-color: var(--bg1);
+	color: var(--dark-txt);
+	overflow: hidden;
+	transition: cubic-bezier(0.62, 0, 0.32, 1) 250ms;
+	border-radius: 8px;
+	max-height: 500px;
+
+	&.expend {
+		max-height: 50px;
+	}
+
+	&[data-hide="true"] {
+		transform: translateX(120%);
+		animation: overflow-hider 0s ease-in-out 0.2s forwards;
+		transition: all cubic-bezier(0.62, 0, 0.32, 1) 150ms;
+	}
+
+	.calendar-wrapper {
+		background-color: var(--bg2);
+	}
+
+	.top-bar {
+		height: 50px;
+		border-bottom: 1px solid var(--comp-txt);
+
+		.expend {
+			background-color: var(--bg2);
+		}
+	}
+}
+
+.calendar-wrapper {
+	color: var(--dark-txt);
+	background-color: var(--bg2);
+}
+
+body[data-theme="dark"] .calendar-pane {
+	--bg1: #1c1c1c;
+	--bg2: #242424;
+	--bgHvr: #313131;
+
+	&.bd-blur {
+		--bg1: rgba(36, 36, 36, 0.8);
+		--bg2: rgba(0, 0, 0, 0.2);
+		--bgHvr: rgba(255, 255, 255, 0.08);
+	}
+}

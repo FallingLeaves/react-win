@@ -6,7 +6,15 @@ const INSTALL_KEY = "__instanlled__";
 
 let installed: any[] = JSON.parse(localStorage.getItem(INSTALL_KEY) || "[]");
 
-const apps = [
+interface AppItem {
+	name: string;
+	icon: string;
+	type: string;
+	action?: string;
+	payload?: string;
+}
+
+const apps: AppItem[] = [
 	{
 		name: "Start",
 		icon: "home",

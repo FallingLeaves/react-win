@@ -41,7 +41,7 @@ export default ({
 		setFirstDayOfMonth(getFirstDayOfMonth(new Date()));
 		setWeekLabelArray(getWeekLabelList(weekLabelIndex));
 		setWeekListValue(getFirstDayOfMonth(new Date()));
-	}, []);
+	}, [observer]);
 
 	const onClickDay = (dayItem: DayItem) => {};
 

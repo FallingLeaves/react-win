@@ -16,7 +16,7 @@ export default ({ observer }: { observer: Subject }) => {
 	useEffect(() => {
 		setHeaderContent(getHeaderContent(new Date()));
 		setFirstDayOfMonth(new Date());
-	}, []);
+	}, [observer]);
 
 	const observerNotify = (currentFirstDayOfMonth: Date) => {
 		setHeaderContent(getHeaderContent(currentFirstDayOfMonth));

@@ -6,10 +6,10 @@ import { Subject } from "@/utils/subject";
 import "./index.scss";
 
 export default ({ weekLabelIndex = 1 }: { weekLabelIndex: number }) => {
-	// let calendarObserver: Subject = initObserver();
-	let calendarObserver = useMemo<Subject>(() => {
-		return initObserver();
-	}, []);
+	let calendarObserver: Subject = initObserver();
+	// let calendarObserver = useMemo<Subject>(() => {
+	// 	return initObserver();
+	// }, []);
 
 	return (
 		<div className="calendar-content">

@@ -5,6 +5,7 @@ import taskbarReducer from "./taskbar";
 import settingsReducer from "./settings";
 import desktopReducer from "./desktop";
 import sidepaneReducer from "./sidepane";
+import menusReducer from "./menus";
 
 const store = configureStore({
 	reducer: {
@@ -14,6 +15,7 @@ const store = configureStore({
 		settings: settingsReducer,
 		desktop: desktopReducer,
 		sidepane: sidepaneReducer,
+		menus: menusReducer,
 	},
 });
 

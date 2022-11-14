@@ -25,7 +25,7 @@ export function Taskbar() {
 
 	return (
 		<div className="taskbar">
-			<div className="taskbar-content flex items-center justify-between">
+			<div className="taskbar-content flex items-center justify-between" data-menu="task">
 				<div className="taskbar-left">
 					{tasks.widgets ? (
 						<Icon

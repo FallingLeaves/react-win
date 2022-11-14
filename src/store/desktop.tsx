@@ -2,11 +2,12 @@ import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
 import type { RootState } from "./index";
 import { desktopApps } from "@/utils";
+import { AppItem } from "@/utils/apps";
 
 export type SortType = "none" | "name" | "date" | "size";
 
 interface DesktopState {
-	apps: any[];
+	apps: AppItem[];
 	hide: boolean;
 	size: number;
 	sort: SortType;
@@ -28,10 +29,13 @@ export const desktopSlice = createSlice({
 		changeSize: (state, action: PayloadAction<number>) => {
 			state.size = action.payload;
 		},
+		changeSort: (state, action: PayloadAction<SortType>) => {
+			state.sort = action.payload;
+		},
 	},
 });
 
-export const { changeSize } = desktopSlice.actions;
+export const { changeSize, changeSort } = desktopSlice.actions;
 export const selectDesktop = (state: RootState) => state.desktop;
 
 export default desktopSlice.reducer;

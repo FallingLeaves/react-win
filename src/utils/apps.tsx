@@ -6,7 +6,7 @@ const INSTALL_KEY = "__instanlled__";
 
 let installed: any[] = JSON.parse(localStorage.getItem(INSTALL_KEY) || "[]");
 
-interface AppItem {
+export interface AppItem {
 	name: string;
 	icon: string;
 	type: string;

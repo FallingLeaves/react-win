@@ -14,6 +14,7 @@ export interface MenuOpt {
 	payload?: string | boolean;
 	dot?: boolean;
 	check?: boolean;
+	dsb?: boolean;
 	type?: string;
 	icon?: string;
 	opts?: MenuOpt[];
@@ -49,6 +50,7 @@ const initialState: MenusState = {
 		desk: {
 			width: "310px",
 			secwid: "200px",
+			ispace: true,
 		},
 		task: {
 			width: "220px",
@@ -58,6 +60,7 @@ const initialState: MenusState = {
 		app: {
 			width: "310px",
 			secwid: "200px",
+			ispace: true,
 		},
 	},
 	menus: {
@@ -178,6 +181,110 @@ const initialState: MenusState = {
 				action: "DESKABOUT",
 				icon: "win/info",
 				payload: true,
+			},
+		],
+		task: [
+			{
+				name: "Align icons",
+				opts: [
+					{
+						name: "Left",
+						action: "changeTaskAlign",
+						payload: "left",
+					},
+					{
+						name: "Center",
+						action: "changeTaskAlign",
+						payload: "center",
+						dot: true,
+					},
+				],
+			},
+			{
+				type: "hr",
+			},
+			{
+				name: "Search",
+				opts: [
+					{
+						name: "Show",
+						action: "TASKSRCH",
+						payload: true,
+					},
+					{
+						name: "Hide",
+						action: "TASKSRCH",
+						payload: false,
+					},
+				],
+			},
+			{
+				name: "Widgets",
+				opts: [
+					{
+						name: "Show",
+						action: "TASKWIDG",
+						payload: true,
+					},
+					{
+						name: "Hide",
+						action: "TASKWIDG",
+						payload: false,
+					},
+				],
+			},
+			{
+				type: "hr",
+			},
+			{
+				name: "Show Desktop",
+				action: "SHOWDSK",
+			},
+		],
+		app: [
+			{
+				name: "Open",
+				action: "performApp",
+				payload: "open",
+			},
+			{
+				name: "Run as administrator",
+				action: "performApp",
+				payload: "open",
+				icon: "win/shield",
+			},
+			{
+				name: "Open file location",
+				dsb: true,
+			},
+			{
+				name: "Unpin from start",
+				dsb: true,
+			},
+			{
+				name: "Compress to Zip file",
+				dsb: true,
+			},
+			{
+				name: "Copy as path",
+				dsb: true,
+			},
+			{
+				name: "Properties",
+				dsb: true,
+			},
+			{
+				type: "hr",
+			},
+			{
+				name: "Delete shortcut",
+				action: "performApp",
+				payload: "delshort",
+			},
+			{
+				name: "Delete",
+				action: "delApp",
+				payload: "delete",
 			},
 		],
 	},

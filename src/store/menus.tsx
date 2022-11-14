@@ -8,23 +8,21 @@ enum MenuType {
 	app = "app",
 }
 
-interface MenuOpt {
+export interface MenuOpt {
 	name?: string;
 	action?: string;
-	payload?: string;
+	payload?: string | boolean;
 	dot?: boolean;
 	check?: boolean;
 	type?: string;
 	icon?: string;
+	opts?: MenuOpt[];
 }
 
-interface MenuItem {
-	name?: string;
-	icon?: string;
-	type?: string;
-	action?: string;
-	payload?: string | boolean;
-	opts?: MenuOpt[];
+interface MenuStyle {
+	width: string;
+	secwid: string;
+	ispace?: boolean;
 }
 
 interface MenusState {
@@ -32,7 +30,8 @@ interface MenusState {
 	top: number;
 	left: number;
 	opts: MenuType | string;
-	menus: { [key: string]: MenuItem[] };
+	data: { [key: string]: MenuStyle };
+	menus: { [key: string]: MenuOpt[] };
 }
 
 export interface MenuPayload {
@@ -46,6 +45,21 @@ const initialState: MenusState = {
 	top: 0,
 	left: 0,
 	opts: MenuType.desk,
+	data: {
+		desk: {
+			width: "310px",
+			secwid: "200px",
+		},
+		task: {
+			width: "220px",
+			secwid: "120px",
+			ispace: false,
+		},
+		app: {
+			width: "310px",
+			secwid: "200px",
+		},
+	},
 	menus: {
 		desk: [
 			{

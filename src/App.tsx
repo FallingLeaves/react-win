@@ -10,7 +10,12 @@ import { CalendarWid } from "@/components/calendar-widget";
 import ActMenu from "./components/menu";
 
 import { useAppDispatch, useAppSelector } from "@/hooks";
-import { MenuPayload, show as menuShow, hide as menuHide } from "@/store/menus";
+import {
+	MenuPayload,
+	show as menuShow,
+	hide as menuHide,
+	MenuType,
+} from "@/store/menus";
 
 function ErrorFallback({ error, resetErrorBoundary }: FallbackProps) {
 	return (
@@ -41,7 +46,7 @@ function App() {
 		};
 		const target = e.target as HTMLElement;
 		if (target.dataset.menu) {
-			data.menu = target.dataset.menu;
+			data.menu = target.dataset.menu as MenuType;
 			dispatch(menuShow(data));
 		}
 	};

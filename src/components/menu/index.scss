@@ -17,7 +17,7 @@
 		pointer-events: none;
 	}
 
-	&[data-left="false"] {
+	&[data-left="false"] .mini-menu {
 		left: unset;
 		right: 98%;
 	}

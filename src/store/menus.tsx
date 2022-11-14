@@ -1,12 +1,9 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
+import merge from "lodash/merge";
 
 import type { RootState } from "./index";
 
-enum MenuType {
-	desk = "desk",
-	task = "task",
-	app = "app",
-}
+export type MenuType = "desk" | "task" | "app";
 
 export interface MenuOpt {
 	name?: string;
@@ -26,26 +23,26 @@ interface MenuStyle {
 	ispace?: boolean;
 }
 
-interface MenusState {
+export interface MenusState {
 	hide: boolean;
 	top: number;
 	left: number;
-	opts: MenuType | string;
-	data: { [key: string]: MenuStyle };
-	menus: { [key: string]: MenuOpt[] };
+	opts: MenuType;
+	data: { [key in MenuType]: MenuStyle };
+	menus: { [key in MenuType]: MenuOpt[] };
 }
 
 export interface MenuPayload {
 	top?: number;
 	left?: number;
-	menu?: MenuType | string;
+	menu?: MenuType;
 }
 
 const initialState: MenusState = {
 	hide: true,
 	top: 0,
 	left: 0,
-	opts: MenuType.desk,
+	opts: "desk",
 	data: {
 		desk: {
 			width: "310px",
@@ -74,11 +71,13 @@ const initialState: MenusState = {
 						name: "Large icons",
 						action: "changeIconSize",
 						payload: "large",
+						dot: false,
 					},
 					{
 						name: "Medium icons",
 						action: "changeIconSize",
 						payload: "medium",
+						dot: false,
 					},
 					{
 						name: "Small icons",
@@ -105,16 +104,19 @@ const initialState: MenusState = {
 						name: "Name",
 						action: "changeSort",
 						payload: "name",
+						dot: false,
 					},
 					{
 						name: "Size",
 						action: "changeSort",
 						payload: "size",
+						dot: false,
 					},
 					{
 						name: "Date modified",
 						action: "changeSort",
 						payload: "date",
+						dot: false,
 					},
 				],
 			},
@@ -301,12 +303,15 @@ export const menusSlice = createSlice({
 			state.hide = false;
 			state.left = action.payload.left || 430;
 			state.top = action.payload.top || 272;
-			state.opts = action.payload.menu || MenuType.desk;
+			state.opts = action.payload.menu || "desk";
+		},
+		changeMenu: (state, action: PayloadAction<MenusState>) => {
+			state = merge(state, action.payload);
 		},
 	},
 });
 
-export const { hide, show } = menusSlice.actions;
+export const { hide, show, changeMenu } = menusSlice.actions;
 export const selectMenus = (state: RootState) => state.menus;
 
 export default menusSlice.reducer;

@@ -2,7 +2,12 @@ import React, { useState, useEffect } from "react";
 import "./index.scss";
 import { useAppDispatch, useAppSelector } from "@/hooks";
 import { Icon } from "@/utils/general";
-import { MenuOpt } from "@/store/menus";
+import { MenuOpt, hide } from "@/store/menus";
+import * as Actions from "@/actions";
+
+interface Action {
+	[key: string]: Function;
+}
 
 interface Pos {
 	left: number;
@@ -13,6 +18,7 @@ interface Pos {
 
 export const ActMenu = () => {
 	const menu = useAppSelector((state) => state.menus);
+	const dispatch = useAppDispatch();
 	const menudate = menu.data[menu.opts];
 	const { abpos, isLeft } = useAppSelector((state) => {
 		const menu = state.menus;
@@ -43,7 +49,21 @@ export const ActMenu = () => {
 		};
 	});
 
-	const clickDispatch = (e: React.MouseEvent) => {};
+	const clickDispatch = (e: React.MouseEvent, opt: MenuOpt) => {
+		e.stopPropagation();
+		// const target = e.target as HTMLElement;
+		// const action = {
+		// 	type: target.dataset.action,
+		// 	payload: target.dataset.payload,
+		// };
+		if (typeof opt.action === "string") {
+			if (opt.action !== opt.action.toUpperCase()) {
+				const fn = (Actions as Action)[opt.action as string];
+				fn && fn(opt.payload, menu);
+			}
+			dispatch(hide());
+		}
+	};
 
 	const menuObj = (data: MenuOpt[]) => {
 		let mnode: JSX.Element[] = [];
@@ -55,7 +75,7 @@ export const ActMenu = () => {
 					<div
 						key={index}
 						className="menu-opt"
-						onClick={clickDispatch}
+						onClick={(e) => clickDispatch(e, opt)}
 						data-action={opt.action}
 						data-payload={opt.payload}
 					>

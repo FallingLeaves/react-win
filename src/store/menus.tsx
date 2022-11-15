@@ -1,9 +1,13 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import merge from "lodash/merge";
+import { Draft } from "immer";
 
 import type { RootState } from "./index";
 
 export type MenuType = "desk" | "task" | "app";
+
+const CHANGE_SIZE_ACTION = "changeIconSize";
+const CHANGE_SORT_ACTION = "changeSort";
 
 export interface MenuOpt {
 	name?: string;
@@ -69,19 +73,19 @@ const initialState: MenusState = {
 				opts: [
 					{
 						name: "Large icons",
-						action: "changeIconSize",
+						action: CHANGE_SIZE_ACTION,
 						payload: "large",
 						dot: false,
 					},
 					{
 						name: "Medium icons",
-						action: "changeIconSize",
+						action: CHANGE_SIZE_ACTION,
 						payload: "medium",
 						dot: false,
 					},
 					{
 						name: "Small icons",
-						action: "changeIconSize",
+						action: CHANGE_SIZE_ACTION,
 						payload: "small",
 						dot: true,
 					},
@@ -102,19 +106,19 @@ const initialState: MenusState = {
 				opts: [
 					{
 						name: "Name",
-						action: "changeSort",
+						action: CHANGE_SORT_ACTION,
 						payload: "name",
 						dot: false,
 					},
 					{
 						name: "Size",
-						action: "changeSort",
+						action: CHANGE_SORT_ACTION,
 						payload: "size",
 						dot: false,
 					},
 					{
 						name: "Date modified",
-						action: "changeSort",
+						action: CHANGE_SORT_ACTION,
 						payload: "date",
 						dot: false,
 					},
@@ -170,7 +174,7 @@ const initialState: MenusState = {
 			},
 			{
 				name: "Next desktop background",
-				action: "WALLNEXT",
+				action: "wallnext",
 			},
 			{
 				name: "Open in Terminal",
@@ -308,10 +312,45 @@ export const menusSlice = createSlice({
 		changeMenu: (state, action: PayloadAction<MenusState>) => {
 			state = merge(state, action.payload);
 		},
+		changeViewSize: (state, action: PayloadAction<string>) => {
+			let viewOpts = state.menus.desk[0].opts as Draft<MenuOpt>[];
+			for (let index = 0; index < viewOpts.length; index++) {
+				let item = viewOpts[index];
+				if (item.action === CHANGE_SIZE_ACTION) {
+					item.dot = false;
+					if (item.payload === action.payload) {
+						item.dot = true;
+					}
+				}
+			}
+		},
+		changeViewSortBy: (state, action: PayloadAction<string>) => {
+			let sortOpts = state.menus.desk[1].opts as Draft<MenuOpt>[];
+			for (let index = 0; index < sortOpts.length; index++) {
+				let item = sortOpts[index];
+				if (item.action === CHANGE_SORT_ACTION) {
+					item.dot = false;
+					if (item.payload === action.payload) {
+						item.dot = true;
+					}
+				}
+			}
+		},
+		toggleViewIconVisible: (state) => {
+			let viewOpts = state.menus.desk[0].opts as Draft<MenuOpt>[];
+			viewOpts[4].check = !viewOpts[4].check;
+		},
 	},
 });
 
-export const { hide, show, changeMenu } = menusSlice.actions;
+export const {
+	hide,
+	show,
+	changeMenu,
+	changeViewSize,
+	changeViewSortBy,
+	toggleViewIconVisible,
+} = menusSlice.actions;
 export const selectMenus = (state: RootState) => state.menus;
 
 export default menusSlice.reducer;

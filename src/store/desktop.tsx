@@ -32,10 +32,20 @@ export const desktopSlice = createSlice({
 		changeSort: (state, action: PayloadAction<SortType>) => {
 			state.sort = action.payload;
 		},
+		show: (state) => {
+			state.hide = false;
+		},
+		hide: (state) => {
+			state.hide = true;
+		},
+		toggle: (state) => {
+			state.hide = !state.hide;
+		},
 	},
 });
 
-export const { changeSize, changeSort } = desktopSlice.actions;
+export const { changeSize, changeSort, show, hide, toggle } =
+	desktopSlice.actions;
 export const selectDesktop = (state: RootState) => state.desktop;
 
 export default desktopSlice.reducer;

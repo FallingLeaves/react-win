@@ -59,7 +59,7 @@ export const ActMenu = () => {
 		if (typeof opt.action === "string") {
 			if (opt.action !== opt.action.toUpperCase()) {
 				const fn = (Actions as Action)[opt.action as string];
-				fn && fn(opt.payload, menu);
+				fn && fn(opt.payload);
 			}
 			dispatch(hide());
 		}

@@ -1,47 +1,53 @@
 import store from "@/store";
-import { changeSize, changeSort as desktopSort } from "@/store/desktop";
-import { MenusState, MenuOpt, changeMenu } from "@/store/menus";
+import {
+	changeSize,
+	changeSort as desktopSort,
+	SortType,
+	hide as desktopHide,
+	show as desktopShow,
+	toggle as desktopToggle,
+} from "@/store/desktop";
+import {
+	MenusState,
+	MenuOpt,
+	changeMenu,
+	changeViewSize,
+	changeViewSortBy,
+	toggleViewIconVisible,
+} from "@/store/menus";
 
 import cloneDeep from "lodash/cloneDeep";
 
-export const changeIconSize = (size: string, menu: MenusState) => {
-	let tempMenu = cloneDeep(menu);
-
-	(tempMenu.menus.desk[0].opts as MenuOpt[])[0].dot = false;
-	(tempMenu.menus.desk[0].opts as MenuOpt[])[1].dot = false;
-	(tempMenu.menus.desk[0].opts as MenuOpt[])[2].dot = false;
-
+export const changeIconSize = (size: string) => {
 	let currentSize = 1;
 	if (size === "large") {
 		currentSize = 1.5;
-		(tempMenu.menus.desk[0].opts as MenuOpt[])[0].dot = true;
 	} else if (size === "medium") {
 		currentSize = 1.2;
-		(tempMenu.menus.desk[0].opts as MenuOpt[])[1].dot = true;
 	} else {
 		currentSize = 1;
-		(tempMenu.menus.desk[0].opts as MenuOpt[])[2].dot = true;
 	}
 
 	store.dispatch(changeSize(currentSize));
-	store.dispatch(changeMenu(tempMenu));
+	store.dispatch(changeViewSize(size));
 };
 
-export const changeSort = (sortBy: string, menu: MenusState) => {
-	let tempMenu = cloneDeep(menu);
-
-	(tempMenu.menus.desk[1].opts as MenuOpt[])[0].dot = false;
-	(tempMenu.menus.desk[1].opts as MenuOpt[])[1].dot = false;
-	(tempMenu.menus.desk[1].opts as MenuOpt[])[2].dot = false;
-
-	if (sortBy === "name") {
-		(tempMenu.menus.desk[1].opts as MenuOpt[])[0].dot = true;
-	} else if (sortBy === "size") {
-		(tempMenu.menus.desk[1].opts as MenuOpt[])[1].dot = true;
-	} else {
-		(tempMenu.menus.desk[1].opts as MenuOpt[])[2].dot = true;
-	}
-
-	store.dispatch(changeMenu(tempMenu));
+export const changeSort = (sortBy: SortType) => {
+	store.dispatch(changeViewSortBy(sortBy));
 	store.dispatch(desktopSort(sortBy));
+};
+
+export const deskHide = (payload?: string) => {
+	store.dispatch(desktopToggle());
+	store.dispatch(toggleViewIconVisible());
+};
+
+export const refresh = (payload?: string) => {
+	const tempMenu = store.getState().menus;
+	if ((tempMenu.menus.desk[0].opts as MenuOpt[])[4].check) {
+		store.dispatch(desktopHide());
+		setTimeout(() => {
+			store.dispatch(desktopShow());
+		}, 100);
+	}
 };

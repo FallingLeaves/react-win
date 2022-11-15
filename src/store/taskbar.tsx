@@ -42,10 +42,17 @@ export const taskbarSlice = createSlice({
 				state.align = "center";
 			}
 		},
+		changeSearch: (state, action: PayloadAction<boolean>) => {
+			state.search = action.payload;
+		},
+		changeWidget: (state, action: PayloadAction<boolean>) => {
+			state.widgets = action.payload;
+		},
 	},
 });
 
-export const { center, left, toggle } = taskbarSlice.actions;
+export const { center, left, toggle, changeSearch, changeWidget } =
+	taskbarSlice.actions;
 export const selectTaskbar = (state: RootState) => state.taskbar;
 
 export default taskbarSlice.reducer;

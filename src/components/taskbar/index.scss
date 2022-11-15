@@ -17,6 +17,11 @@
 	height: 100%;
 }
 
+.taskbar-right {
+	position: absolute;
+	right: 0;
+}
+
 @keyframes popintro {
 	0% {
 		transform: scale(0);
@@ -104,4 +109,9 @@
 .graybd:hover {
 	border: solid 1px #a1a1a1;
 	border-width: 0 0 0 2px;
+}
+
+.widget.widget-left {
+	position: absolute;
+	left: 0;
 }

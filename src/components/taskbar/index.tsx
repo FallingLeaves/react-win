@@ -25,17 +25,12 @@ export function Taskbar() {
 
 	return (
 		<div className="taskbar">
-			<div className="taskbar-content flex items-center justify-between" data-menu="task">
-				<div className="taskbar-left">
-					{tasks.widgets ? (
-						<Icon
-							className="taskbar-icon widget"
-							src="widget"
-							width={24}
-							click="WIDGTOGG"
-						></Icon>
-					) : null}
-				</div>
+			<div
+				className={`taskbar-content flex items-center ${
+					tasks.align === "center" ? "justify-center" : "justify-start"
+				}`}
+				data-menu="task"
+			>
 				<div className="taskbar-center flex items-center">
 					<Icon
 						className="taskbar-icon"
@@ -48,6 +43,16 @@ export function Taskbar() {
 							click="STARTSRC"
 							className="taskbar-icon search"
 							icon="taskSearch"
+						></Icon>
+					) : null}
+					{tasks.widgets ? (
+						<Icon
+							className={`taskbar-icon widget ${
+								tasks.align === "center" ? "widget-left" : ""
+							}`}
+							src="widget"
+							width={24}
+							click="WIDGTOGG"
 						></Icon>
 					) : null}
 					{tasks.apps.map((task, index) => {

@@ -14,7 +14,16 @@ import {
 	changeViewSize,
 	changeViewSortBy,
 	toggleViewIconVisible,
+	changeTaskAlignWay,
+	toggleTaskSearch,
+	toggleTaskWidget,
 } from "@/store/menus";
+import { next as wallpaperNext } from "@/store/wallpaper";
+import {
+	toggle as taskAlignToggle,
+	changeSearch,
+	changeWidget,
+} from "@/store/taskbar";
 
 import cloneDeep from "lodash/cloneDeep";
 
@@ -50,4 +59,23 @@ export const refresh = (payload?: string) => {
 			store.dispatch(desktopShow());
 		}, 100);
 	}
+};
+
+export const wallnext = (payload?: string) => {
+	store.dispatch(wallpaperNext());
+};
+
+export const changeTaskAlign = (payload: string) => {
+	store.dispatch(taskAlignToggle());
+	store.dispatch(changeTaskAlignWay(payload));
+};
+
+export const changeTaskSearch = (payload: boolean) => {
+	store.dispatch(changeSearch(payload));
+	store.dispatch(toggleTaskSearch(payload));
+};
+
+export const changeTaskWidget = (payload: boolean) => {
+	store.dispatch(changeWidget(payload));
+	store.dispatch(toggleTaskWidget(payload));
 };

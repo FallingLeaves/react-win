@@ -8,6 +8,9 @@ export type MenuType = "desk" | "task" | "app";
 
 const CHANGE_SIZE_ACTION = "changeIconSize";
 const CHANGE_SORT_ACTION = "changeSort";
+const CHANGE_TASK_ALIGN_ACTION = "changeTaskAlign";
+const CHANGE_TASK_SEARCH_ACTION = "changeTaskSearch";
+const CHANGE_TASK_WIDGET_ACTION = "changeTaskWidget";
 
 export interface MenuOpt {
 	name?: string;
@@ -195,12 +198,13 @@ const initialState: MenusState = {
 				opts: [
 					{
 						name: "Left",
-						action: "changeTaskAlign",
+						action: CHANGE_TASK_ALIGN_ACTION,
 						payload: "left",
+						dot: false,
 					},
 					{
 						name: "Center",
-						action: "changeTaskAlign",
+						action: CHANGE_TASK_ALIGN_ACTION,
 						payload: "center",
 						dot: true,
 					},
@@ -214,13 +218,15 @@ const initialState: MenusState = {
 				opts: [
 					{
 						name: "Show",
-						action: "TASKSRCH",
+						action: CHANGE_TASK_SEARCH_ACTION,
 						payload: true,
+						dot: true,
 					},
 					{
 						name: "Hide",
-						action: "TASKSRCH",
+						action: CHANGE_TASK_SEARCH_ACTION,
 						payload: false,
+						dot: false,
 					},
 				],
 			},
@@ -229,13 +235,15 @@ const initialState: MenusState = {
 				opts: [
 					{
 						name: "Show",
-						action: "TASKWIDG",
+						action: CHANGE_TASK_WIDGET_ACTION,
 						payload: true,
+						dot: true,
 					},
 					{
 						name: "Hide",
-						action: "TASKWIDG",
+						action: CHANGE_TASK_WIDGET_ACTION,
 						payload: false,
+						dot: false,
 					},
 				],
 			},
@@ -313,9 +321,9 @@ export const menusSlice = createSlice({
 			state = merge(state, action.payload);
 		},
 		changeViewSize: (state, action: PayloadAction<string>) => {
-			let viewOpts = state.menus.desk[0].opts as Draft<MenuOpt>[];
-			for (let index = 0; index < viewOpts.length; index++) {
-				let item = viewOpts[index];
+			let opts = state.menus.desk[0].opts as Draft<MenuOpt>[];
+			for (let index = 0; index < opts.length; index++) {
+				let item = opts[index];
 				if (item.action === CHANGE_SIZE_ACTION) {
 					item.dot = false;
 					if (item.payload === action.payload) {
@@ -325,9 +333,9 @@ export const menusSlice = createSlice({
 			}
 		},
 		changeViewSortBy: (state, action: PayloadAction<string>) => {
-			let sortOpts = state.menus.desk[1].opts as Draft<MenuOpt>[];
-			for (let index = 0; index < sortOpts.length; index++) {
-				let item = sortOpts[index];
+			let opts = state.menus.desk[1].opts as Draft<MenuOpt>[];
+			for (let index = 0; index < opts.length; index++) {
+				let item = opts[index];
 				if (item.action === CHANGE_SORT_ACTION) {
 					item.dot = false;
 					if (item.payload === action.payload) {
@@ -340,6 +348,42 @@ export const menusSlice = createSlice({
 			let viewOpts = state.menus.desk[0].opts as Draft<MenuOpt>[];
 			viewOpts[4].check = !viewOpts[4].check;
 		},
+		changeTaskAlignWay: (state, action: PayloadAction<string>) => {
+			let opts = state.menus.task[0].opts as Draft<MenuOpt>[];
+			for (let index = 0; index < opts.length; index++) {
+				let item = opts[index];
+				if (item.action === CHANGE_TASK_ALIGN_ACTION) {
+					item.dot = false;
+					if (item.payload === action.payload) {
+						item.dot = true;
+					}
+				}
+			}
+		},
+		toggleTaskSearch: (state, action: PayloadAction<boolean>) => {
+			let opts = state.menus.task[2].opts as Draft<MenuOpt>[];
+			for (let index = 0; index < opts.length; index++) {
+				let item = opts[index];
+				if (item.action === CHANGE_TASK_SEARCH_ACTION) {
+					item.dot = false;
+					if (item.payload === action.payload) {
+						item.dot = true;
+					}
+				}
+			}
+		},
+		toggleTaskWidget: (state, action: PayloadAction<boolean>) => {
+			let opts = state.menus.task[3].opts as Draft<MenuOpt>[];
+			for (let index = 0; index < opts.length; index++) {
+				let item = opts[index];
+				if (item.action === CHANGE_TASK_WIDGET_ACTION) {
+					item.dot = false;
+					if (item.payload === action.payload) {
+						item.dot = true;
+					}
+				}
+			}
+		},
 	},
 });
 
@@ -350,6 +394,9 @@ export const {
 	changeViewSize,
 	changeViewSortBy,
 	toggleViewIconVisible,
+	changeTaskAlignWay,
+	toggleTaskSearch,
+	toggleTaskWidget,
 } = menusSlice.actions;
 export const selectMenus = (state: RootState) => state.menus;
 

@@ -1,0 +1,32 @@
+.bandpane {
+	--bg1: #dae2f2;
+	--bg2: #e6edf8;
+	--bgHvr: rgb(0 0 0 / 5%);
+
+	position: absolute;
+	bottom: 10px;
+	right: 129px;
+	background-color: var(--bgHvr);
+	color: var(--dark-txt);
+	overflow: hidden;
+	transition: cubic-bezier(0.62, 0, 0.32, 1) 250ms;
+	border-radius: 8px;
+	max-height: fit-content;
+
+	&[data-hide="true"] {
+		opacity: 0;
+		animation: overflow-hider 0s ease-in-out 0.2s forwards;
+		transition: all cubic-bezier(0.62, 0, 0.32, 1) 150ms;
+	}
+
+	.band-wrapper {
+		background-color: var(--bg2);
+		display: flex;
+		flex-wrap: wrap;
+		max-width: 82px;
+
+		div {
+			padding: 12px;
+		}
+	}
+}

@@ -8,6 +8,8 @@ import { Taskbar } from "@/components/taskbar";
 import { Desktop } from "@/components/desktop";
 import { CalendarWid } from "@/components/calendar-widget";
 import ActMenu from "./components/menu";
+import { Bandpane } from "@/components/bandpane";
+import { Sidepane } from "@/components/sidepane";
 
 import { useAppDispatch, useAppSelector } from "@/hooks";
 import {
@@ -62,6 +64,8 @@ function App() {
 					<div className="desktop" data-menu="desk">
 						<Desktop />
 						<CalendarWid />
+						<Bandpane />
+						<Sidepane />
 					</div>
 				</div>
 			</ErrorBoundary>

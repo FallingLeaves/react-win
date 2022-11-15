@@ -3,7 +3,7 @@ import "./index.scss";
 import { useAppDispatch, useAppSelector } from "@/hooks";
 import { Icon } from "@/utils/general";
 import { Battery } from "@/components/battery";
-import { toggleCal } from "@/store/sidepane";
+import { toggleCal, toggleban, togglePane } from "@/store/sidepane";
 
 export function Taskbar() {
 	const tasks = useAppSelector((state) => state.taskbar);
@@ -21,6 +21,14 @@ export function Taskbar() {
 
 	const dateClick = (e: React.MouseEvent) => {
 		dispath(toggleCal());
+	};
+
+	const bandClick = (e: React.MouseEvent) => {
+		dispath(toggleban());
+	};
+
+	const paneClick = (e: React.MouseEvent) => {
+		dispath(togglePane());
 	};
 
 	return (
@@ -70,10 +78,18 @@ export function Taskbar() {
 					})}
 				</div>
 				<div className="taskbar-right flex">
-					<div className="px-2 flex handcr prtclk" data-action="BANDTOGG">
+					<div
+						className="px-2 flex handcr prtclk hvlight"
+						data-action="BANDTOGG"
+						onClick={bandClick}
+					>
 						<Icon fafa="faChevronUp" width={10}></Icon>
 					</div>
-					<div className="prtckl handcr my-1 px-1 flex" data-action="PANETOGG">
+					<div
+						className="prtckl handcr my-1 px-1 flex hvlight"
+						data-action="PANETOGG"
+						onClick={paneClick}
+					>
 						<Icon className="task-icon" src="wifi" ui width={16}></Icon>
 						<Icon
 							className="task-icon"
@@ -84,7 +100,7 @@ export function Taskbar() {
 						<Battery></Battery>
 					</div>
 					<div
-						className="task-date m-1 handcr prtclk"
+						className="task-date m-1 handcr prtclk hvlight"
 						data-action="CALNTOGG"
 						onClick={dateClick}
 					>

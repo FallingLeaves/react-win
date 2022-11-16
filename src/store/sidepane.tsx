@@ -2,7 +2,7 @@ import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
 import type { RootState } from "./index";
 
-interface QuickItem {
+export interface QuickItem {
 	ui: boolean;
 	src: string;
 	name: string;
@@ -24,28 +24,28 @@ const initialState: SidepaneState = {
 			src: "wifi",
 			name: "WiFi",
 			state: "network.wifi.state",
-			action: "STNGTOGG",
+			action: "toggleWifi",
 		},
 		{
 			ui: true,
 			src: "bluetooth",
 			name: "Bluetooth",
 			state: "devices.bluetooth",
-			action: "STNGTOGG",
+			action: "toggleBluetooth",
 		},
 		{
 			ui: true,
 			src: "airplane",
 			name: "Flight Mode",
 			state: "network.airplane",
-			action: "STNGTOGG",
+			action: "toggleAirplane",
 		},
 		{
 			ui: true,
 			src: "saver",
 			name: "Battery Saver",
 			state: "system.power.saver.state",
-			action: "STNGTOGG",
+			action: "toggleSaver",
 		},
 		{
 			ui: true,
@@ -59,7 +59,7 @@ const initialState: SidepaneState = {
 			src: "nightlight",
 			name: "Night Light",
 			state: "system.display.nightlight.state",
-			action: "STNGTOGG",
+			action: "toggleNightlight",
 		},
 	],
 	hide: true,
@@ -86,11 +86,20 @@ export const sidepaneSlice = createSlice({
 		togglePane: (state) => {
 			state.hide = !state.hide;
 		},
+		setThemeSrc: (state, action: PayloadAction<string>) => {
+			state.quicks[4].src = action.payload;
+		},
 	},
 });
 
-export const { showCal, hideCal, toggleCal, toggleban, togglePane } =
-	sidepaneSlice.actions;
+export const {
+	showCal,
+	hideCal,
+	toggleCal,
+	toggleban,
+	togglePane,
+	setThemeSrc,
+} = sidepaneSlice.actions;
 export const selectSidepane = (state: RootState) => state.sidepane;
 
 export default sidepaneSlice.reducer;

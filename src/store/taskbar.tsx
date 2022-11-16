@@ -48,10 +48,13 @@ export const taskbarSlice = createSlice({
 		changeWidget: (state, action: PayloadAction<boolean>) => {
 			state.widgets = action.payload;
 		},
+		setAudio: (state, action: PayloadAction<number>) => {
+			state.audio = action.payload;
+		},
 	},
 });
 
-export const { center, left, toggle, changeSearch, changeWidget } =
+export const { center, left, toggle, changeSearch, changeWidget, setAudio } =
 	taskbarSlice.actions;
 export const selectTaskbar = (state: RootState) => state.taskbar;
 

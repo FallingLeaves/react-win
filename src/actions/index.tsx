@@ -24,6 +24,15 @@ import {
 	changeSearch,
 	changeWidget,
 } from "@/store/taskbar";
+import {
+	wifiToggle,
+	bluetoothToggle,
+	airplaneToggle,
+	saverToggle,
+	setTheme,
+	nightlightToggle,
+} from "@/store/settings";
+import { setThemeSrc } from "@/store/sidepane";
 
 import cloneDeep from "lodash/cloneDeep";
 
@@ -78,4 +87,32 @@ export const changeTaskSearch = (payload: boolean) => {
 export const changeTaskWidget = (payload: boolean) => {
 	store.dispatch(changeWidget(payload));
 	store.dispatch(toggleTaskWidget(payload));
+};
+
+export const toggleWifi = () => {
+	store.dispatch(wifiToggle());
+};
+
+export const toggleBluetooth = () => {
+	store.dispatch(bluetoothToggle());
+};
+
+export const toggleAirplane = () => {
+	store.dispatch(airplaneToggle());
+};
+
+export const toggleSaver = () => {
+	store.dispatch(saverToggle());
+};
+
+export const toggleNightlight = () => {
+	store.dispatch(nightlightToggle());
+};
+
+export const changeTheme = (payload: string) => {
+	let thm = store.getState().settings.person.theme;
+	thm = thm == "light" ? "dark" : "light";
+	let icon = thm == "light" ? "sun" : "moon";
+	store.dispatch(setThemeSrc(icon));
+	store.dispatch(setTheme(thm));
 };

@@ -10,67 +10,76 @@ import { CalendarWid } from "@/components/calendar-widget";
 import ActMenu from "./components/menu";
 import { Bandpane } from "@/components/bandpane";
 import { Sidepane } from "@/components/sidepane";
+import * as Applications from "@/containers/apps";
+
+interface Application {
+  [key: string]: any;
+}
 
 import { useAppDispatch, useAppSelector } from "@/hooks";
 import {
-	MenuPayload,
-	show as menuShow,
-	hide as menuHide,
-	MenuType,
+  MenuPayload,
+  show as menuShow,
+  hide as menuHide,
+  MenuType,
 } from "@/store/menus";
 
 function ErrorFallback({ error, resetErrorBoundary }: FallbackProps) {
-	return (
-		<div role="alert">
-			<p>Something went wrong:</p>
-			<pre>{error.message}</pre>
-			<button onClick={resetErrorBoundary}>Try again</button>
-		</div>
-	);
+  return (
+    <div role="alert">
+      <p>Something went wrong:</p>
+      <pre>{error.message}</pre>
+      <button onClick={resetErrorBoundary}>Try again</button>
+    </div>
+  );
 }
 
 function App() {
-	const dispatch = useAppDispatch();
+  const dispatch = useAppDispatch();
 
-	const winClick = (e: MouseEvent) => {
-		// TODO 不是所有的点击都关闭menu
-		dispatch(menuHide());
-	};
+  const winClick = (e: MouseEvent) => {
+    // TODO 不是所有的点击都关闭menu
+    dispatch(menuHide());
+  };
 
-	window.onclick = winClick;
+  window.onclick = winClick;
 
-	window.oncontextmenu = function (e: MouseEvent) {
-		e.preventDefault();
-		// console.log(e);
-		let data: MenuPayload = {
-			left: e.clientX,
-			top: e.clientY,
-		};
-		const target = e.target as HTMLElement;
-		if (target.dataset.menu) {
-			data.menu = target.dataset.menu as MenuType;
-			dispatch(menuShow(data));
-		}
-	};
+  window.oncontextmenu = function (e: MouseEvent) {
+    e.preventDefault();
+    // console.log(e);
+    let data: MenuPayload = {
+      left: e.clientX,
+      top: e.clientY,
+    };
+    const target = e.target as HTMLElement;
+    if (target.dataset.menu) {
+      data.menu = target.dataset.menu as MenuType;
+      dispatch(menuShow(data));
+    }
+  };
 
-	return (
-		<div className="App">
-			<ErrorBoundary FallbackComponent={ErrorFallback}>
-				{/* <Counter></Counter> */}
-				<div className="appwrap">
-					<Background />
-					<Taskbar />
-					<ActMenu />
-					<div className="desktop" data-menu="desk">
-						<Desktop />
-						<CalendarWid />
-						<Bandpane />
-						<Sidepane />
-					</div>
-				</div>
-			</ErrorBoundary>
-		</div>
-	);
+  return (
+    <div className="App">
+      <ErrorBoundary FallbackComponent={ErrorFallback}>
+        {/* <Counter></Counter> */}
+        <div className="appwrap">
+          <Background />
+          <Taskbar />
+          <ActMenu />
+          <div className="desktop" data-menu="desk">
+            <Desktop />
+            {Object.keys(Applications).map((key, index) => {
+              const WinApp = (Applications as Application)[key];
+              return <WinApp key={index}></WinApp>;
+            })}
+            <CalendarWid />
+            <Bandpane />
+            <Sidepane />
+          </div>
+        </div>
+      </ErrorBoundary>
+    </div>
+  );
 }
 
 export default App;

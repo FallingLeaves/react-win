@@ -182,7 +182,7 @@ const initialState: MenusState = {
 			{
 				name: "Open in Terminal",
 				icon: "terminal",
-				action: "OPENTERM",
+				action: "openTerminal",
 				payload: "C:\\Users\\Blue\\Desktop",
 			},
 			{

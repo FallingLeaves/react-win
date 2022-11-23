@@ -32,3 +32,5 @@ export const desktopApps = icons
 	.sort((a, b) => {
 		return desktop.indexOf(a.name) > desktop.indexOf(b.name) ? 1 : -1;
 	});
+
+export const allApps = icons.filter((app) => app.type === "app");

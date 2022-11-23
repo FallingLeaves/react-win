@@ -172,3 +172,73 @@ export const Icon = (props: IconProps) => {
 		);
 	}
 };
+
+interface ToolbarProps {
+	app: string;
+	icon: string;
+	size: string;
+	name: string;
+	float?: boolean;
+	noinvert?: boolean;
+	invert?: boolean;
+	bg?: string;
+}
+
+export const Toolbar = (props: ToolbarProps) => {
+	const [snap, setSnap] = useState(false);
+
+	return (
+		<>
+			<div
+				className="toolbar"
+				data-float={props.float ? true : false}
+				data-noinvert={props.noinvert ? true : false}
+				style={{ background: props.bg }}
+			>
+				<div
+					className="top-info flex flex-grow items-center"
+					data-float={props.float ? true : false}
+					data-op="0"
+				>
+					<Icon src={props.icon} width={14}></Icon>
+					<div
+						className="app-fullname text-xss"
+						data-white={props.invert ? true : false}
+					>
+						{props.name}
+					</div>
+				</div>
+				<div className="action-btns flex items-center">
+					<Icon
+						invert={props.invert}
+						payload="mnmz"
+						pr
+						src="minimize"
+						ui
+						width={12}
+						click={props.app}
+					></Icon>
+					<div className="snapbox h-full" data-hv={snap}>
+						<Icon
+							invert={props.invert}
+							click={props.app}
+							ui
+							pr
+							width={12}
+							payload="mxmz"
+							src={props.size === "full" ? "maximize" : "maxmin"}
+						></Icon>
+						<Icon
+							className="close-btn"
+							invert={props.invert}
+							click={props.app}
+							payload="close"
+							ui
+							width={14}
+						></Icon>
+					</div>
+				</div>
+			</div>
+		</>
+	);
+};

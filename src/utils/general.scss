@@ -3,3 +3,67 @@
 	display: grid;
 	place-items: center;
 }
+
+.toolbar {
+	display: flex;
+	flex-shrink: 0;
+	width: 100%;
+	height: 28px;
+	justify-content: space-between;
+	align-items: center;
+	position: relative;
+	border-radius: 6px 6px 0 0;
+
+	&[data-float="false"] {
+		z-index: 10;
+	}
+}
+
+.top-info {
+	height: 100%;
+
+	&[data-float="true"] {
+		opacity: 0;
+	}
+
+	.uicon {
+		margin: 0 10px 0 6px;
+	}
+}
+
+.action-btns {
+	height: 100%;
+
+	.uicon {
+		height: 100%;
+		padding: 0 18px;
+		transition: all ease-in-out 60ms;
+
+		img {
+			transition: all ease-in-out 60ms;
+		}
+
+		&:hover {
+			background: rgba(136, 136, 136, 0.2);
+		}
+
+		&[data-payload="close"]:hover {
+			background: rgba(255, 0, 0, 0.8);
+			img {
+				filter: invert(1);
+			}
+		}
+	}
+}
+
+.close-btn {
+	border-radius: 0 6px 0 0;
+}
+
+.snapbox {
+	position: relative;
+
+	&[data-hv="true"] {
+		background: rgba(136, 136, 136, 0.2);
+	}
+}

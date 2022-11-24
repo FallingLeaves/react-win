@@ -10,10 +10,10 @@ if (import.meta.env.MODE === "development") {
 }
 
 export interface Dim {
-  width: string;
-  height: string;
-  left: string;
-  top: string;
+  width: string | number;
+  height: string | number;
+  left: string | number;
+  top: string | number;
 }
 
 interface AppStatus extends AppItem {

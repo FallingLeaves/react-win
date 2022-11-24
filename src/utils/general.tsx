@@ -15,6 +15,8 @@ import * as FaIcons from "@fortawesome/free-solid-svg-icons";
 import * as FaRegIcons from "@fortawesome/free-regular-svg-icons";
 import * as AllIcons from "./icon";
 import { changeAppSize } from "@/actions";
+import { useAppSelector } from "@/hooks";
+import { LayItem } from "@/store/globals";
 
 interface IconProps {
   ui?: boolean;
@@ -181,6 +183,54 @@ export const Icon = (props: IconProps) => {
   }
 };
 
+interface SnapScreenProps {
+  visible: boolean;
+  invert?: boolean;
+  app: string;
+  close: Function;
+}
+
+export const SnapScreen = (props: SnapScreenProps) => {
+  const lays = useAppSelector((state) => state.globals.lays);
+
+  const clickDispatch = (item: LayItem) => {
+    if (item.dim) {
+      changeAppSize({
+        app: props.app,
+        type: "resize",
+        dim: item.dim,
+      });
+      props.close();
+    }
+  };
+
+  return props.visible ? (
+    <div className="snap-content" data-dark={props.invert}>
+      {lays.map((item, index) => {
+        return (
+          <div key={index} className="snap-lay">
+            {item.map((v, i) => {
+              return (
+                <div
+                  key={i}
+                  className="snapper"
+                  style={{
+                    borderTopLeftRadius: (v.br % 2 === 0 ? 1 : 0) * 4,
+                    borderTopRightRadius: (v.br % 3 === 0 ? 1 : 0) * 4,
+                    borderBottomRightRadius: (v.br % 5 === 0 ? 1 : 0) * 4,
+                    borderBottomLeftRadius: (v.br % 7 === 0 ? 1 : 0) * 4,
+                  }}
+                  onClick={() => clickDispatch(v)}
+                ></div>
+              );
+            })}
+          </div>
+        );
+      })}
+    </div>
+  ) : null;
+};
+
 interface ToolbarProps {
   app: string;
   icon: string;
@@ -287,6 +337,14 @@ export const Toolbar = (props: ToolbarProps) => {
     winApp.style.height = height + "px";
   };
 
+  const openSnap = () => {
+    setSnap(true);
+  };
+
+  const closeSnap = () => {
+    setSnap(false);
+  };
+
   return (
     <>
       <div
@@ -321,7 +379,12 @@ export const Toolbar = (props: ToolbarProps) => {
             click={props.app}
             type={props.type}
           ></Icon>
-          <div className="snapbox h-full" data-hv={snap}>
+          <div
+            className="snapbox h-full"
+            data-hv={snap}
+            onMouseOver={openSnap}
+            onMouseLeave={closeSnap}
+          >
             <Icon
               invert={props.invert}
               click={props.app}
@@ -332,6 +395,12 @@ export const Toolbar = (props: ToolbarProps) => {
               src={props.size === "full" ? "maximize" : "maxmin"}
               type={props.type}
             ></Icon>
+            <SnapScreen
+              visible={snap}
+              invert={props.invert}
+              app={props.app}
+              close={closeSnap}
+            ></SnapScreen>
           </div>
           <Icon
             className="close-btn"

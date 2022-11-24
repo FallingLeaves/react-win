@@ -7,18 +7,20 @@ import desktopReducer from "./desktop";
 import sidepaneReducer from "./sidepane";
 import menusReducer from "./menus";
 import appsReducer from "./apps";
+import globalsReducer from "./globals";
 
 const store = configureStore({
-	reducer: {
-		counter: counterReducer,
-		wallpaper: wallpaperReducer,
-		taskbar: taskbarReducer,
-		settings: settingsReducer,
-		desktop: desktopReducer,
-		sidepane: sidepaneReducer,
-		menus: menusReducer,
-		apps: appsReducer,
-	},
+  reducer: {
+    counter: counterReducer,
+    wallpaper: wallpaperReducer,
+    taskbar: taskbarReducer,
+    settings: settingsReducer,
+    desktop: desktopReducer,
+    sidepane: sidepaneReducer,
+    menus: menusReducer,
+    apps: appsReducer,
+    globals: globalsReducer,
+  },
 });
 
 export default store;

@@ -56,7 +56,10 @@ export const Icon = (props: IconProps) => {
   const clickDispatch = (event: MouseEvent) => {
     console.log(props);
     if (props.type === "app") {
-      changeAppSize(props.payload as string, props.click as string);
+      changeAppSize({
+        app: props.click as string,
+        type: props.payload as string,
+      });
     }
   };
 
@@ -193,6 +196,97 @@ interface ToolbarProps {
 export const Toolbar = (props: ToolbarProps) => {
   const [snap, setSnap] = useState(false);
 
+  const toolClick = () => {
+    changeAppSize({
+      type: "front",
+      app: props.app,
+    });
+  };
+
+  let posStart = [0, 0];
+  let winApp: HTMLElement;
+  // 判断toolbar顶部还是边
+  let op = 0;
+  let direction = [0, 0];
+  let posParent = [0, 0];
+  let dimParent = [0, 0];
+
+  const toolDrag = (e: React.MouseEvent) => {
+    e.preventDefault();
+    posStart = [e.clientX, e.clientY];
+    const target = e.currentTarget as HTMLElement;
+    op = parseInt(target.dataset.op!);
+    if (op === 0) {
+      winApp = target.parentElement! && target.parentElement.parentElement!;
+    } else {
+      direction = target.dataset.vec!.split(",").map(Number);
+      winApp =
+        target.parentElement! &&
+        target.parentElement.parentElement! &&
+        target.parentElement.parentElement.parentElement!;
+    }
+
+    if (winApp) {
+      winApp.classList.add("notrans");
+      winApp.classList.add("z9900");
+      posParent = [winApp.offsetLeft, winApp.offsetTop];
+      dimParent = [
+        parseFloat(getComputedStyle(winApp).width),
+        parseFloat(getComputedStyle(winApp).height),
+      ];
+    }
+
+    document.addEventListener("mouseup", closeDrag);
+    document.addEventListener("mousemove", eleDrag);
+  };
+
+  const closeDrag = (e: globalThis.MouseEvent) => {
+    winApp.classList.remove("notrans");
+    winApp.classList.remove("z9900");
+    document.removeEventListener("mousemove", eleDrag);
+    document.removeEventListener("mouseup", closeDrag);
+    const style = getComputedStyle(winApp);
+    const payload = {
+      app: props.app,
+      type: "resize",
+      dim: {
+        width: style.width,
+        height: style.height,
+        top: style.top,
+        left: style.left,
+      },
+    };
+    changeAppSize(payload);
+  };
+
+  const eleDrag = (e: globalThis.MouseEvent) => {
+    e.preventDefault();
+    let posX = posParent[0] + e.clientX - posStart[0];
+    let posY = posParent[1] + e.clientY - posStart[1];
+    let dimW = dimParent[0] + direction[0] * (e.clientX - posStart[0]);
+    let dimH = dimParent[1] + direction[1] * (e.clientY - posStart[1]);
+    if (op === 0) {
+      setPos(posX, posY);
+    } else {
+      dimW = Math.max(dimW, 320);
+      dimH = Math.max(dimH, 320);
+      posX = posParent[0] + Math.min(direction[0], 0) * (dimW - dimParent[0]);
+      posY = posParent[1] + Math.min(direction[1], 0) * (dimH - dimParent[1]);
+      setPos(posX, posY);
+      setDim(dimW, dimH);
+    }
+  };
+
+  const setPos = (left: number, top: number) => {
+    winApp.style.left = left + "px";
+    winApp.style.top = top + "px";
+  };
+
+  const setDim = (width: number, height: number) => {
+    winApp.style.width = width + "px";
+    winApp.style.height = height + "px";
+  };
+
   return (
     <>
       <div
@@ -205,6 +299,8 @@ export const Toolbar = (props: ToolbarProps) => {
           className="top-info flex flex-grow items-center"
           data-float={props.float ? true : false}
           data-op="0"
+          onClick={toolClick}
+          onMouseDown={toolDrag}
         >
           <Icon src={props.icon} width={14}></Icon>
           <div
@@ -248,6 +344,64 @@ export const Toolbar = (props: ToolbarProps) => {
             src="close"
             type={props.type}
           ></Icon>
+        </div>
+      </div>
+      <div className="resize-content topone">
+        <div className="flex">
+          <div
+            className="conrsz cursor-nw-resize"
+            data-op="1"
+            onMouseDown={toolDrag}
+            data-vec="-1,-1"
+          ></div>
+          <div
+            className="edgrsz cursor-n-resize wdws"
+            data-op="1"
+            onMouseDown={toolDrag}
+            data-vec="0,-1"
+          ></div>
+        </div>
+      </div>
+      <div className="resize-content bottomone">
+        <div className="flex">
+          <div
+            className="conrsz cursor-ne-resize"
+            data-op="1"
+            onMouseDown={toolDrag}
+            data-vec="-1,1"
+          ></div>
+          <div
+            className="edgrsz cursor-n-resize wdws"
+            data-op="1"
+            onMouseDown={toolDrag}
+            data-vec="0,1"
+          ></div>
+          <div
+            className="conrsz cursor-nw-resize"
+            data-op="1"
+            onMouseDown={toolDrag}
+            data-vec="1,1"
+          ></div>
+        </div>
+      </div>
+      <div className="resize-content leftone">
+        <div className="h-full">
+          <div
+            className="edgrsz cursor-w-resize hdws"
+            data-op="1"
+            onMouseDown={toolDrag}
+            data-vec="-1,0"
+          ></div>
+        </div>
+      </div>
+      <div className="resize-content rightone">
+        <div className="h-full">
+          <div
+            className="edgrsz cursor-w-resize hdws"
+            data-op="1"
+            onMouseDown={toolDrag}
+            data-vec="1,0"
+          ></div>
         </div>
       </div>
     </>

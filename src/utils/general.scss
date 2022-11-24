@@ -1,69 +1,122 @@
 .uicon {
-	position: relative;
-	display: grid;
-	place-items: center;
+  position: relative;
+  display: grid;
+  place-items: center;
 }
 
 .toolbar {
-	display: flex;
-	flex-shrink: 0;
-	width: 100%;
-	height: 28px;
-	justify-content: space-between;
-	align-items: center;
-	position: relative;
-	border-radius: 6px 6px 0 0;
+  display: flex;
+  flex-shrink: 0;
+  width: 100%;
+  height: 28px;
+  justify-content: space-between;
+  align-items: center;
+  position: relative;
+  border-radius: 6px 6px 0 0;
 
-	&[data-float="false"] {
-		z-index: 10;
-	}
+  &[data-float="false"] {
+    z-index: 10;
+  }
 }
 
 .top-info {
-	height: 100%;
+  height: 100%;
 
-	&[data-float="true"] {
-		opacity: 0;
-	}
+  &[data-float="true"] {
+    opacity: 0;
+  }
 
-	.uicon {
-		margin: 0 10px 0 6px;
-	}
+  .uicon {
+    margin: 0 10px 0 6px;
+  }
 }
 
 .action-btns {
-	height: 100%;
+  height: 100%;
 
-	.uicon {
-		height: 100%;
-		padding: 0 18px;
-		transition: all ease-in-out 60ms;
+  .uicon {
+    height: 100%;
+    padding: 0 18px;
+    transition: all ease-in-out 60ms;
 
-		img {
-			transition: all ease-in-out 60ms;
-		}
+    img {
+      transition: all ease-in-out 60ms;
+    }
 
-		&:hover {
-			background: rgba(136, 136, 136, 0.2);
-		}
+    &:hover {
+      background: rgba(136, 136, 136, 0.2);
+    }
 
-		&[data-payload="close"]:hover {
-			background: rgba(255, 0, 0, 0.8);
-			img {
-				filter: invert(1);
-			}
-		}
-	}
+    &[data-payload="close"]:hover {
+      background: rgba(255, 0, 0, 0.8);
+      img {
+        filter: invert(1);
+      }
+    }
+  }
 }
 
 .close-btn {
-	border-radius: 0 6px 0 0;
+  border-radius: 0 6px 0 0;
 }
 
 .snapbox {
-	position: relative;
+  position: relative;
 
-	&[data-hv="true"] {
-		background: rgba(136, 136, 136, 0.2);
-	}
+  &[data-hv="true"] {
+    background: rgba(136, 136, 136, 0.2);
+  }
+}
+
+.resize-content {
+  position: absolute;
+  z-index: 12;
+}
+
+.topone {
+  top: -8px;
+  left: 0;
+  width: 80%;
+  z-index: 22;
+}
+
+.leftone {
+  left: -8px;
+  height: 100%;
+}
+
+.rightone {
+  right: -8px;
+  bottom: 0;
+  top: 28px;
+}
+
+.bottomone {
+  bottom: -8px;
+  left: 0;
+  width: 100%;
+}
+
+.conrsz {
+  width: 8px;
+  height: 8px;
+  // background: rgba(238, 21, 21, 0.4);
+}
+
+.edgrsz {
+  min-width: 8px;
+  min-height: 8px;
+  // background: rgba(21, 54, 238, 0.4);
+}
+
+.wdws {
+  width: 100%;
+}
+
+.hdws {
+  height: 100%;
+}
+
+.noscroll::-webkit-scrollbar {
+  display: none;
 }

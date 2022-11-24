@@ -9,13 +9,20 @@ if (import.meta.env.MODE === "development") {
   dev = "";
 }
 
+export interface Dim {
+  width: string;
+  height: string;
+  left: string;
+  top: string;
+}
+
 interface AppStatus extends AppItem {
   size: string;
   hide: boolean;
   z: number;
   max: boolean;
   dir?: string;
-  dim?: any;
+  dim?: Dim;
 }
 
 type ObjType<T extends readonly string[]> = {
@@ -46,8 +53,9 @@ for (let index = 0; index < allApps.length; index++) {
 initialState.hz = 2;
 
 export interface AppStatusPayload {
-  size: string;
+  type: string;
   app: string;
+  dim?: Dim;
 }
 
 export const appsSlice = createSlice({
@@ -62,29 +70,29 @@ export const appsSlice = createSlice({
       state.terminal!.z = state.hz!;
     },
     changeAppStatus: (state, action: PayloadAction<AppStatusPayload>) => {
-      const { size, app } = action.payload;
+      const { type, app, dim } = action.payload;
       const keys = Object.keys(state);
       for (let index = 0; index < keys.length; index++) {
         let item = state[keys[index]];
         if (item.action === app) {
-          if (size === "full") {
+          if (type === "full") {
             item.size = "full";
             item.hide = false;
             item.max = true;
             state.hz! += 1;
             item.z = state.hz!;
-          } else if (size === "close") {
+          } else if (type === "close") {
             item.hide = true;
             item.max = false;
             item.z = -1;
             state.hz! -= 1;
-          } else if (size === "mxmz") {
+          } else if (type === "mxmz") {
             item.size = ["mini", "full"][item.size !== "full" ? 1 : 0];
             item.hide = false;
             item.max = true;
             state.hz! += 1;
             item.z = state.hz!;
-          } else if (size === "toggle") {
+          } else if (type === "toggle") {
             if (item.z !== state.hz!) {
               item.hide = false;
               if (item.max) {
@@ -106,13 +114,29 @@ export const appsSlice = createSlice({
                 state.hz -= 1;
               }
             }
-          } else if (size === "mnmz") {
+          } else if (type === "mnmz") {
             item.max = false;
             item.hide = false;
             if (item.z === state.hz) {
               state.hz -= 1;
             }
             item.z = -1;
+          } else if (type === "resize") {
+            item.size = "cstm";
+            item.hide = false;
+            item.max = true;
+            if (item.z !== state.hz) {
+              state.hz! += 1;
+            }
+            item.z = state.hz!;
+            item.dim = dim;
+          } else if (type === "front") {
+            item.hide = false;
+            item.max = true;
+            if (item.z !== state.hz) {
+              state.hz! += 1;
+              item.z = state.hz!;
+            }
           }
         }
       }

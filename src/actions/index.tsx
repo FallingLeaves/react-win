@@ -37,6 +37,7 @@ import {
   openTerminal as openWinTerminal,
   changeAppStatus,
   AppStatusPayload,
+  Dim,
 } from "@/store/apps";
 
 import cloneDeep from "lodash/cloneDeep";
@@ -126,7 +127,7 @@ export const openTerminal = (payload: string) => {
   store.dispatch(openWinTerminal());
 };
 
-export const changeAppSize = (payload: string, click: string) => {
+export const changeAppSize = (payload: AppStatusPayload) => {
   // console.log(payload, click);
-  store.dispatch(changeAppStatus({ app: click, size: payload }));
+  store.dispatch(changeAppStatus(payload));
 };

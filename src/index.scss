@@ -140,3 +140,11 @@ svg[data-invert="true"],
 i[data-invert="true"] {
   filter: invert(1);
 }
+
+.notrans {
+  transition: none !important;
+}
+
+.z9900 {
+  z-index: 9900 !important;
+}

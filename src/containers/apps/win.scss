@@ -1,3 +1,27 @@
+@font-face {
+  font-family: SettingsIcons;
+  src: url("./assets/SettingsIcons.woff2") format("woff2");
+}
+
+body {
+  --dark-txt: #000;
+  --alt-txt: #fff;
+  --med-dark: #111;
+  --txt-col: #222;
+  --med-txt: #3c3c3c;
+  --comp-txt: #ddd;
+  --comp-clr: #e6e6e6;
+  --gray-txt: #555;
+  --sat-txt: #777;
+  --clrPrm: #0067c0;
+  --wintheme: #eee;
+
+  --txt_clr-rgb: 0 0 0;
+  --base_bg-rgb: 243 243 243;
+
+  --fakeMica: #f3f3f3 radial-gradient(#eff4f9 75%, #f3f3f3 100%) no-repeat fixed;
+}
+
 .window {
   position: absolute;
   top: 0;

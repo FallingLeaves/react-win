@@ -74,14 +74,19 @@ export function Taskbar() {
             ></Icon>
           ) : null}
           {tasks.apps.map((task, index) => {
+            let isHidden = apps[task.icon].hide;
+            let isActive = apps[task.icon].z == apps.hz;
             return (
               <div key={index} data-value={task.icon}>
                 <Icon
                   className="taskbar-icon"
                   width={24}
                   click={task.action}
-                  payload="togg"
+                  payload="toggle"
                   src={task.icon}
+                  type={task.type}
+                  open={isHidden ? false : true}
+                  active={isActive}
                 ></Icon>
               </div>
             );

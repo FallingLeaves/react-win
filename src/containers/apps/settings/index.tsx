@@ -3,6 +3,9 @@ import { useAppDispatch, useAppSelector } from "@/hooks";
 import { Toolbar } from "@/utils/general";
 import "./index.scss";
 import data from "../assets/seetingsData.json";
+import { Image } from "@/components/image";
+import useDebounce from "@/hooks/use-debounce";
+import { setWall } from "@/store/wallpaper";
 
 interface Tile {
   type: string;
@@ -17,6 +20,25 @@ export const Settings = () => {
   const wall = useAppSelector((state) => state.wallpaper);
   const [nav, setNav] = useState("");
   const [page, setPage] = useState("System"); // default System
+  const [wordkey, setWordkey] = useState("");
+  const dispatch = useAppDispatch();
+
+  useDebounce(
+    () => {
+      console.log(wordkey);
+    },
+    1000,
+    [wordkey]
+  );
+
+  const searchHandle = (e: React.ChangeEvent) => {
+    setWordkey((e.target as HTMLInputElement).value);
+  };
+
+  const handleWallAndTheme = (item: string) => {
+    const src = `${item}/img0.jpg`;
+    dispatch(setWall(src));
+  };
 
   return (
     <div
@@ -58,6 +80,8 @@ export const Settings = () => {
                 className="search"
                 placeholder="Find a setting "
                 name="search"
+                value={wordkey}
+                onChange={searchHandle}
               />
             </div>
             <div className="nav-bottom win-scroll">
@@ -181,7 +205,23 @@ export const Settings = () => {
                             />
                             <div>
                               <h3>Select a theme to apply</h3>
-                              <div className="bg-box"></div>
+                              <div className="bg-box">
+                                {wall.themes.map((item, index) => {
+                                  return (
+                                    <Image
+                                      className={
+                                        wall.src.includes(item)
+                                          ? "selected"
+                                          : ""
+                                      }
+                                      key={index}
+                                      src={`img/wallpaper/${item}/img0.jpg`}
+                                      ext
+                                      onClick={() => handleWallAndTheme(item)}
+                                    ></Image>
+                                  );
+                                })}
+                              </div>
                             </div>
                           </div>
                         );
@@ -205,6 +245,21 @@ export const Settings = () => {
               </main>
             ) : null;
           })}
+
+          <div
+            className="nav-menu-btn"
+            onClick={() => setNav(nav ? "" : "open")}
+          >
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              fill="currentColor"
+              viewBox="0 0 48 48"
+              width={24}
+              height={24}
+            >
+              <path d="M5.5 9a1.5 1.5 0 1 0 0 3h37a1.5 1.5 0 1 0 0-3h-37zm0 13.5a1.5 1.5 0 1 0 0 3h37a1.5 1.5 0 1 0 0-3h-37zm0 13.5a1.5 1.5 0 1 0 0 3h37a1.5 1.5 0 1 0 0-3h-37z" />
+            </svg>
+          </div>
         </div>
       </div>
     </div>

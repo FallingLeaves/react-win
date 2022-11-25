@@ -16,6 +16,9 @@
   font-size: 14px;
   height: 100%;
 
+  container-type: inline-size;
+  container-name: appWrapper;
+
   * {
     margin: 0;
     padding: 0;
@@ -348,6 +351,46 @@
         &.square::after {
           display: none;
         }
+      }
+    }
+  }
+
+  .nav-menu-btn {
+    display: none;
+  }
+
+  @container appWrapper (max-width: 800px) {
+    .nav-menu-btn {
+      display: flex;
+      position: absolute;
+      top: 8px;
+      right: 8px;
+      padding: 12px;
+      border-radius: 6px;
+
+      &:hover {
+        background: rgb(var(--txt_clr-rgb) / 5%);
+      }
+
+      svg {
+        transition: all 0.1s;
+      }
+      &:active svg {
+        transform: scaleX(0.67);
+      }
+    }
+
+    main {
+      margin-left: 0;
+    }
+    nav {
+      background: var(--bg);
+      z-index: 999;
+      transform: translateX(-100%);
+      transition: all 0.2s cubic-bezier(0, 0, 0, 1);
+
+      &.open {
+        transform: translateX(0);
       }
     }
   }

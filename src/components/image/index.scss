@@ -1,0 +1,17 @@
+.image-content {
+  position: relative;
+  display: grid;
+  place-items: center;
+  width: auto;
+  height: auto;
+
+  &[data-back="true"] {
+    background-position: center;
+    background-size: cover;
+  }
+
+  img[data-free="false"] {
+    max-width: 100%;
+    max-height: 100%;
+  }
+}

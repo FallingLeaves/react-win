@@ -8,19 +8,21 @@ import sidepaneReducer from "./sidepane";
 import menusReducer from "./menus";
 import appsReducer from "./apps";
 import globalsReducer from "./globals";
+import filesReducer from "./files";
 
 const store = configureStore({
-  reducer: {
-    counter: counterReducer,
-    wallpaper: wallpaperReducer,
-    taskbar: taskbarReducer,
-    settings: settingsReducer,
-    desktop: desktopReducer,
-    sidepane: sidepaneReducer,
-    menus: menusReducer,
-    apps: appsReducer,
-    globals: globalsReducer,
-  },
+	reducer: {
+		counter: counterReducer,
+		wallpaper: wallpaperReducer,
+		taskbar: taskbarReducer,
+		settings: settingsReducer,
+		desktop: desktopReducer,
+		sidepane: sidepaneReducer,
+		menus: menusReducer,
+		apps: appsReducer,
+		globals: globalsReducer,
+		files: filesReducer,
+	},
 });
 
 export default store;

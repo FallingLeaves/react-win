@@ -6,6 +6,7 @@ import data from "../assets/seetingsData.json";
 import { Image } from "@/components/image";
 import useDebounce from "@/hooks/use-debounce";
 import { setWall } from "@/store/wallpaper";
+import { LangSwitch } from "@/components/langswitch";
 
 interface Tile {
   type: string;
@@ -14,6 +15,7 @@ interface Tile {
   icon?: string;
 }
 
+// TODO 点击处理（主题切换、国际化等）
 export const Settings = () => {
   const settings = useAppSelector((state) => state.apps.settings);
   const userName = useAppSelector((state) => state.settings.person.name);
@@ -225,6 +227,73 @@ export const Settings = () => {
                             </div>
                           </div>
                         );
+                      case "accountsTop":
+                        return (
+                          <div key={i} className="accountsTop ">
+                            <img
+                              src="img/settings/defAccount.webp"
+                              alt=""
+                              width={90}
+                            />
+                            <div>
+                              <p>{userName.toUpperCase()}</p>
+                              <p>Local Account</p>
+                              <p>Administrator</p>
+                            </div>
+                          </div>
+                        );
+                      case "timeTop":
+                        return (
+                          <div key={i} className="timeTop">
+                            <h1>
+                              {new Date().toLocaleTimeString("en-US", {
+                                hour: "numeric",
+                                minute: "numeric",
+                                hour12: true,
+                              })}
+                            </h1>
+                          </div>
+                        );
+                      case "langSwitcher":
+                        return (
+                          <div key={i} className="tile langSwitcherTile">
+                            <span className="settings-icon"></span>
+                            <div className="tile-content">
+                              <p>Windows display language</p>
+                              <p className="tile-desc">
+                                Windows features like Settings and File
+                                Explorer will appear in this language
+                              </p>
+                            </div>
+                            <LangSwitch></LangSwitch>
+                          </div>
+                        );
+                      case "updateTop":
+                        return (
+                          <div key={i} className="updateTop">
+                            <div className="left">
+                              <img
+                                src="img/settings/update.png"
+                                width={90}
+                                alt=""
+                              />
+                              <div>
+                                <h2>You're up to date</h2>
+                                <p>Last checked: Today</p>
+                              </div>
+                            </div>
+                            <div className="right">
+                              <div className="btn">Check for updates</div>
+                            </div>
+                          </div>
+                        );
+                      case "subHeading":
+                      case "spacer":
+                        return (
+                          <div key={i} className={v.type}>
+                            {v.name}
+                          </div>
+                        );
                       case "tile":
                       case "tile square":
                       case "tile thin-blue":
@@ -238,6 +307,9 @@ export const Settings = () => {
                           </div>
                         );
                       default:
+                        console.log(
+                          `error - type ${v.type} not found`
+                        );
                         break;
                     }
                   })}

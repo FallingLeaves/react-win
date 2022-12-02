@@ -98,6 +98,36 @@
 	}
 }
 
+.file-mid-content {
+	height: 100%;
+	box-sizing: border-box;
+	display: flex;
+}
+
+.file-footer {
+	background: var(--bg2);
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	padding: 2px 4px 2px 8px;
+
+	.item-count {
+		box-sizing: border-box;
+		padding: 0 8px;
+		height: 60%;
+		border: 0 solid var(--med-txt);
+		border-right-width: 1px;
+	}
+
+	.view-opts {
+		.view-icon {
+			&[data-open="true"] {
+				background: var(--focus-bg);
+			}
+		}
+	}
+}
+
 .disabled {
 	color: var(--dsb-col) !important;
 }

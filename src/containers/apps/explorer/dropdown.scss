@@ -1,0 +1,36 @@
+.dropdown-menu {
+	display: flex;
+	flex-direction: column;
+	position: relative;
+
+	.drop-title {
+		display: flex;
+		margin: 2.5px 0;
+		padding-left: 4px;
+		align-items: center;
+
+		&:hover {
+			&::before {
+				content: "";
+				position: absolute;
+				left: 0;
+				width: 100%;
+				height: 1.4em;
+				border-radius: 2px;
+				background: rgba(136, 136, 136, 0.24);
+			}
+
+			.arrow-ui svg {
+				color: var(--txt-col) !important;
+			}
+		}
+
+		.arrow-ui {
+			margin-right: 0.4em;
+		}
+
+		.fa-chevron-right {
+			color: var(--dsb-col);
+		}
+	}
+}

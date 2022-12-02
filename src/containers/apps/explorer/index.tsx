@@ -93,6 +93,28 @@ export const Explorer = () => {
 							/>
 						</div>
 					</div>
+					<div className="file-mid-content"></div>
+					<div className="file-footer">
+						<div className="item-count text-xs">{fdata?.data.length} items</div>
+						<div className="view-opts flex">
+							<Icon
+								className="view-icon hvtheme p-1"
+								click="FILEVIEW"
+								payload="5"
+								open={files.view === 5}
+								src="win/viewinfo"
+								width={16}
+							></Icon>
+							<Icon
+								className="view-icon hvtheme p-1"
+								click="FILEVIEW"
+								payload="1"
+								open={files.view === 1}
+								src="win/viewinfo"
+								width={16}
+							></Icon>
+						</div>
+					</div>
 				</div>
 			</div>
 		</div>

@@ -1,0 +1,24 @@
+.dir-content {
+	&:hover {
+		.dirchev,
+		.dncontent {
+			background: rgba(136, 136, 136, 0.3);
+		}
+	}
+
+  .dncontent {
+    padding: 0 0.25em;
+    color: var(--med-dark);
+    height: 100%;
+    display: flex;
+    align-items: center;
+    box-sizing: border-box;
+    padding-bottom: 2px;
+  }
+
+  .dirchev {
+    padding: 0 2px;
+    margin-left: 1px;
+    height: 100%;
+  }
+}

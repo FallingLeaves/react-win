@@ -23,6 +23,8 @@ const store = configureStore({
 		globals: globalsReducer,
 		files: filesReducer,
 	},
+	middleware: (getDefaultMiddleware) =>
+		getDefaultMiddleware({ serializableCheck: false }),
 });
 
 export default store;

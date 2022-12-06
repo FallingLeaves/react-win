@@ -5,6 +5,8 @@ import "./index.scss";
 import Ribbon from "./Ribbon";
 import DirContent from "./DirContent";
 import NavPane from "./NavPane";
+import ContentArea from "./ContentArea";
+import { fileDir, filePath } from "@/store/files";
 
 export const Explorer = () => {
 	const explorer = useAppSelector((state) => state.apps.explorer);
@@ -12,14 +14,31 @@ export const Explorer = () => {
 	const fdata = files.data.getId(files.cdir);
 	const [cpath, setPath] = useState(files.cpath);
 	const [searchtxt, setSearch] = useState("");
+	const dispatch = useAppDispatch();
 
-	const changHandle = (e: React.ChangeEvent) => {};
+	const changHandle = (e: React.ChangeEvent) => {
+		const target = e.target as HTMLInputElement;
+		setPath(target.value);
+	};
 
-	const enterHandle = (e: React.KeyboardEvent) => {};
+	const enterHandle = (e: React.KeyboardEvent) => {
+		if (e.key === "Enter") {
+			dispatch(filePath(cpath));
+		}
+	};
 
-	const dispathAction = (e: React.MouseEvent) => {};
+	const dispathAction = (e: React.MouseEvent) => {
+		const target = e.target as HTMLDivElement;
+		const payload = target.dataset.payload;
+		if (payload) {
+			dispatch(fileDir(payload));
+		}
+	};
 
-	const searchChangeHandle = (e: React.ChangeEvent) => {};
+	const searchChangeHandle = (e: React.ChangeEvent) => {
+		const target = e.target as HTMLInputElement;
+		setSearch(target.value);
+	};
 
 	useEffect(() => {
 		setPath(files.cpath);
@@ -74,7 +93,7 @@ export const Explorer = () => {
 							click="FILEBACK"
 							pr
 						></Icon>
-						<div className="path-bar noscroll">
+						<div className="path-bar noscroll" tabIndex={-1}>
 							<input
 								type="text"
 								className="path-field"
@@ -96,6 +115,7 @@ export const Explorer = () => {
 					</div>
 					<div className="file-mid-content">
 						<NavPane></NavPane>
+						<ContentArea searchtxt={searchtxt}></ContentArea>
 					</div>
 					<div className="file-footer">
 						<div className="item-count text-xs">{fdata?.data.length} items</div>

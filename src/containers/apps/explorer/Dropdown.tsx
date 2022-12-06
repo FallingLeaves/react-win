@@ -17,6 +17,34 @@ interface Props {
 	children?: any;
 }
 
+interface FolderProps {
+	dir: string;
+}
+
+const FolderDrop = ({ dir }: FolderProps) => {
+	const files = useAppSelector((state) => state.files);
+	const folder = files.data.getId(dir);
+
+	return (
+		<>
+			{folder!.data &&
+				folder!.data.map((item, i) => {
+					if (item.type == "folder") {
+						return (
+							<Dropdown
+								key={i}
+								icon={item.info && item.info.icon}
+								title={item.name}
+								notoggle={item.data.length == 0}
+								dir={item.id}
+							/>
+						);
+					}
+				})}
+		</>
+	);
+};
+
 const Dropdown = (props: Props) => {
 	const [open, setOpen] = useState(props.isDropped);
 	const special = useAppSelector((state) => state.files.data.special);
@@ -50,7 +78,7 @@ const Dropdown = (props: Props) => {
 					icon={props.icon}
 					title={props.title}
 					isize={props.isize}
-					action={props.action ? props.action || "FILEDIR" : null}
+					action={props.action !== "" ? props.action || "FILEDIR" : null}
 					payload={fid!}
 				></NavTitle>
 				{props.pinned ? (
@@ -58,7 +86,10 @@ const Dropdown = (props: Props) => {
 				) : null}
 			</div>
 			{!props.notoggle ? (
-				<div className="drop-content">{open ? props.children : null}</div>
+				<div className="drop-content">
+					{open ? props.children : null}
+					{open && fid != null ? <FolderDrop dir={fid} /> : null}
+				</div>
 			) : null}
 		</div>
 	);

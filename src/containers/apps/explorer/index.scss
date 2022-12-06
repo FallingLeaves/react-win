@@ -104,15 +104,20 @@
 	display: flex;
 
 	.nav-pane {
-    width: 180px;
-    max-height: 100%;
-    padding: 0.4em 2px;
-    overflow-x: hidden;
-    overflow-y: scroll;
-    border: 0 solid var(--gray2);
-    border-right-width: medium;
-    position: relative;
-  }
+		width: 180px;
+		max-height: 100%;
+		padding: 0.4em 2px;
+		overflow-x: hidden;
+		overflow-y: scroll;
+		border: 0 solid var(--gray2);
+		border-right-width: medium;
+		position: relative;
+	}
+
+	.content-area {
+		height: 100%;
+		flex-grow: 1;
+	}
 }
 
 .file-footer {

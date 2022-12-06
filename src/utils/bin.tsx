@@ -147,7 +147,7 @@ export class Bin {
 					const item: BinTreeNode = curr!.data[k];
 					if (item.name.toLocaleLowerCase() === pathArr[i]) {
 						i += 1;
-						if (item.data[k].type === "folder") {
+						if (item.type === "folder") {
 							res = false;
 							curr = item;
 						}

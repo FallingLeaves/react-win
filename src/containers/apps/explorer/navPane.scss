@@ -1,0 +1,9 @@
+.extcontent {
+	position: absolute;
+	width: 100%;
+	height: max-content;
+
+	& > .dropdown-menu {
+		margin-bottom: 0.5em;
+	}
+}

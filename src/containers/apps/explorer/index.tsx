@@ -4,6 +4,7 @@ import { Icon, Toolbar } from "@/utils/general";
 import "./index.scss";
 import Ribbon from "./Ribbon";
 import DirContent from "./DirContent";
+import NavPane from "./NavPane";
 
 export const Explorer = () => {
 	const explorer = useAppSelector((state) => state.apps.explorer);
@@ -93,7 +94,9 @@ export const Explorer = () => {
 							/>
 						</div>
 					</div>
-					<div className="file-mid-content"></div>
+					<div className="file-mid-content">
+						<NavPane></NavPane>
+					</div>
 					<div className="file-footer">
 						<div className="item-count text-xs">{fdata?.data.length} items</div>
 						<div className="view-opts flex">

@@ -6,14 +6,15 @@ import NavTitle from "./NavTitle";
 
 interface Props {
 	isDropped?: boolean;
-	spid: string;
-	notoggle: boolean;
-	icon: string;
+	spid?: string;
+	notoggle?: boolean;
+	icon?: string;
 	title: string;
-	isize: number;
-	action: string;
+	isize?: number;
+	action?: string;
 	pinned?: boolean;
-	dir: string;
+	dir?: string;
+	children?: any;
 }
 
 const Dropdown = (props: Props) => {
@@ -50,12 +51,15 @@ const Dropdown = (props: Props) => {
 					title={props.title}
 					isize={props.isize}
 					action={props.action ? props.action || "FILEDIR" : null}
-					payload={fid}
+					payload={fid!}
 				></NavTitle>
 				{props.pinned ? (
 					<Icon className="pin-ui" src="win/pinned" width={16}></Icon>
 				) : null}
 			</div>
+			{!props.notoggle ? (
+				<div className="drop-content">{open ? props.children : null}</div>
+			) : null}
 		</div>
 	);
 };

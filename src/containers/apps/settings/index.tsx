@@ -132,7 +132,7 @@ export const Settings = () => {
                             <div className="right">
                               <div className="column">
                                 <img
-                                  src="https://upload.wikimedia.org/wikipedia/commons/2/25/Microsoft_icon.svg"
+                                  src="https://img.icons8.com/color/2x/microsoft.png"
                                   height={20}
                                   alt=""
                                 />

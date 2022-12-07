@@ -21,6 +21,7 @@ const DirContent = (props: Props) => {
 					onClick={props.onClick}
 					data-action="FILEDIR"
 					data-payload={curr.id}
+					tabIndex={-1}
 				>
 					{curr.name}
 				</div>

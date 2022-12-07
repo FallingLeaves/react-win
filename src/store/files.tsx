@@ -51,10 +51,12 @@ export const fileSlice = createSlice({
 	initialState,
 	reducers: {
 		fileDir: (state, action: PayloadAction<string>) => {
+			navHist = false;
 			state.cdir = action.payload;
 			fileHandle(state);
 		},
 		filePath: (state, action: PayloadAction<string>) => {
+			navHist = false;
 			let pathId = state.data.parsePath(action.payload);
 			if (pathId) {
 				state.cdir = pathId;
@@ -62,6 +64,7 @@ export const fileSlice = createSlice({
 			fileHandle(state);
 		},
 		fileBack: (state) => {
+			navHist = false;
 			let item = state.data.getId(state.cdir);
 			if (item?.host) {
 				state.cdir = item.host.id;
@@ -69,9 +72,11 @@ export const fileSlice = createSlice({
 			fileHandle(state);
 		},
 		fileView: (state, action: PayloadAction<number | string>) => {
+			navHist = false;
 			state.view = +action.payload;
 		},
 		filePrev: (state) => {
+			navHist = false;
 			state.hid--;
 			if (state.hid < 0) {
 				state.hid = 0;
@@ -80,6 +85,7 @@ export const fileSlice = createSlice({
 			fileHandle(state);
 		},
 		fileNext: (state) => {
+			navHist = false;
 			state.hid++;
 			if (state.hid > state.hist.length - 1) {
 				state.hid = state.hist.length - 1;

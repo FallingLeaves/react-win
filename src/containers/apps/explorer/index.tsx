@@ -6,7 +6,7 @@ import Ribbon from "./Ribbon";
 import DirContent from "./DirContent";
 import NavPane from "./NavPane";
 import ContentArea from "./ContentArea";
-import { fileDir, filePath } from "@/store/files";
+import { fileDir, filePath, fileNext, fileBack, filePrev } from "@/store/files";
 
 export const Explorer = () => {
 	const explorer = useAppSelector((state) => state.apps.explorer);
@@ -38,6 +38,18 @@ export const Explorer = () => {
 	const searchChangeHandle = (e: React.ChangeEvent) => {
 		const target = e.target as HTMLInputElement;
 		setSearch(target.value);
+	};
+
+	const prevClick = (e: React.MouseEvent) => {
+		dispatch(filePrev());
+	};
+
+	const nextClick = (e: React.MouseEvent) => {
+		dispatch(fileNext());
+	};
+
+	const backClick = (e: React.MouseEvent) => {
+		dispatch(fileBack());
 	};
 
 	useEffect(() => {
@@ -75,6 +87,7 @@ export const Explorer = () => {
 							fafa="faArrowLeft"
 							width={14}
 							click="FILEPREV"
+							onClick={prevClick}
 							pr
 						></Icon>
 						<Icon
@@ -84,6 +97,7 @@ export const Explorer = () => {
 							fafa="faArrowRight"
 							width={14}
 							click="FILENEXT"
+							onClick={nextClick}
 							pr
 						></Icon>
 						<Icon
@@ -91,6 +105,7 @@ export const Explorer = () => {
 							fafa="faArrowUp"
 							width={14}
 							click="FILEBACK"
+							onClick={backClick}
 							pr
 						></Icon>
 						<div className="path-bar noscroll" tabIndex={-1}>

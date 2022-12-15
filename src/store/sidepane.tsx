@@ -72,19 +72,25 @@ export const sidepaneSlice = createSlice({
 	initialState,
 	reducers: {
 		showCal: (state) => {
-			state.calhide = true;
+			state.calhide = false;
 		},
 		hideCal: (state) => {
-			state.calhide = false;
+			state.calhide = true;
 		},
 		toggleCal: (state) => {
 			state.calhide = !state.calhide;
+		},
+		banHide: (state) => {
+			state.banhide = true;
 		},
 		toggleban: (state) => {
 			state.banhide = !state.banhide;
 		},
 		togglePane: (state) => {
 			state.hide = !state.hide;
+		},
+		paneHide: (state) => {
+			state.hide = true;
 		},
 		setThemeSrc: (state, action: PayloadAction<string>) => {
 			state.quicks[4].src = action.payload;
@@ -99,6 +105,7 @@ export const {
 	toggleban,
 	togglePane,
 	setThemeSrc,
+	banHide,
 } = sidepaneSlice.actions;
 export const selectSidepane = (state: RootState) => state.sidepane;
 

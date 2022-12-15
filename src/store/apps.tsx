@@ -16,7 +16,7 @@ export interface Dim {
   top: string | number;
 }
 
-interface AppStatus extends AppItem {
+export interface AppStatus extends AppItem {
   size: string;
   hide: boolean;
   z: number;

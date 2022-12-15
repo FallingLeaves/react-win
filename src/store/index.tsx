@@ -9,6 +9,7 @@ import menusReducer from "./menus";
 import appsReducer from "./apps";
 import globalsReducer from "./globals";
 import filesReducer from "./files";
+import startmenuSlice from "./startmenu";
 
 const store = configureStore({
 	reducer: {
@@ -22,6 +23,7 @@ const store = configureStore({
 		apps: appsReducer,
 		globals: globalsReducer,
 		files: filesReducer,
+		startmenu: startmenuSlice,
 	},
 	middleware: (getDefaultMiddleware) =>
 		getDefaultMiddleware({ serializableCheck: false }),
